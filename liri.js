@@ -1,41 +1,35 @@
-var key = ("./keys.js");
+var keys = require("./keys.js");
+// Load the NPM twitter package
 var Twitter = require("twitter");
 
-var arg = proccess.argv[2]
-if(arg === "my-tweets"){
-	tweets();
+// var skeys = require("./skeys.js");
 
+var arg = process.argv[2];
+console.log(arg);
 
-	var param = {screen_name; "e_ander512"};
-client.get("status/user_timeline", param, function(error, tweets, respost){
-	if (!error){
-		for(var i = 0; < 4; i++){
-			console.log(tweets[i].text, tweets[i].created_at);
-		}
-	}
-	});	
-};
-
-
+if (arg === "my-tweets") {
+    tweets();
 }
 
+function tweets() {
+    var client = new Twitter({
+        consumer_key: keys.twitterKeys.consumer_key,
+        consumer_secret: keys.twitterKeys.consumer_secret,
+        access_token_key: keys.twitterKeys.access_token_key,
+        access_token_secret: keys.twitterKeys.access_token_secret
+    });
 
-/*var client = new Twitter({
-  consumer_key: 'RydsPI8EhDgtwpJMhzznfvFao',
-  consumer_secret: 'od8iUQX1nFKOWCBaHWiCWyagqHyzK9F2kClXR5a5Cwv2pthXHf',
-  access_token_key: '803750974967975936-SGhds1X9KAM7WcOnzLJUqBZQuU1irrs',
-  access_token_secret: 'D90nWBRHbFjcUC2GPvCGmcMMTprEBqZJ7jR1fH0SmKrp7'
-	});*/
-
-
-
-
-
-
-
-/*client.get(path, params, callback);
-client.post(path, params, callback);
-client.stream(path, params, callback);*/
+    console.log("before git");
+    var params = {screen_name: "e_ander512"};
+    client.get("statuses/user_timeline", params, function(error, tweets, response) {
+        console.log("inside here");
+        if (!error) {
+            for (var i = 0; i < 20; i++) {
+            console.log(tweets[i].text, tweets[i].created_at);
+            }
+        }
+        });
+};
 
 
 
